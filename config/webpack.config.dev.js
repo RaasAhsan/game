@@ -26,6 +26,10 @@ module.exports = {
             presets: ['@babel/preset-env']
           }
         }
+      },
+      {
+        test: /\.(vert|frag)$/,
+        loader: 'raw-loader'
       }
     ]
   },
