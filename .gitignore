@@ -1,8 +1,0 @@
-# nodejs
-node_modules
-npm-debug.log
-
-dist
-
-# macOS
-.DS_Store
