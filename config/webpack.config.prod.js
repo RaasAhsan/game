@@ -1,19 +1,20 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin');
 
 module.exports = {
-  mode: 'development',
-  devtool: 'inline-source-map',
-  devServer: {
-    port: 9090,
-    historyApiFallback: true
-  },
+  mode: 'production',
   entry: [
     './src/main.js'
   ],
   output: {
     pathinfo: true,
-    filename: 'static/bundle.js',
+    filename: 'static/[name].[chunkhash].js',
     publicPath: '/'
+  },
+  optimization: {
+    minimizer: [
+      new UglifyJsPlugin()
+    ]
   },
   module: {
     rules: [

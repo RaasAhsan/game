@@ -4,7 +4,7 @@ const canvas = document.querySelector('#gameCanvas');
 const gl = canvas.getContext('webgl');
 
 if (gl == null) {
-  alert('Failed to initialize WebGL');
+  alert('Failed to initialize WebGL.');
 }
 
 const vsSource = require('./shader.vert');

@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "webpack-dev-server --config config/webpack.config.dev.js"
+    "start": "webpack-dev-server --config config/webpack.config.dev.js",
+    "build": "rm -rf dist && webpack --progress --config config/webpack.config.prod.js"
   },
   "author": "",
   "license": "ISC",
@@ -14,6 +15,7 @@
     "babel-loader": "^8.0.5",
     "html-webpack-plugin": "^3.2.0",
     "raw-loader": "^1.0.0",
+    "uglifyjs-webpack-plugin": "^2.1.1",
     "webpack": "^4.28.3",
     "webpack-cli": "^3.2.1",
     "webpack-dev-server": "^3.1.14"
