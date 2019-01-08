@@ -9,7 +9,7 @@ module.exports = {
   output: {
     pathinfo: true,
     filename: 'static/[name].[chunkhash].js',
-    publicPath: '/'
+    publicPath: '/game'
   },
   optimization: {
     minimizer: [
