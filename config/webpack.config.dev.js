@@ -10,6 +10,9 @@ module.exports = {
   entry: [
     './src/main.js'
   ],
+  resolve: {
+    extensions: ['.js', '.ts']
+  },
   output: {
     pathinfo: true,
     filename: 'static/bundle.js',
@@ -18,14 +21,9 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.js$/,
+        test: /\.(js|ts)$/,
         exclude: /node_modules/,
-        use: {
-          loader: 'babel-loader',
-          options: {
-            presets: ['@babel/preset-env']
-          }
-        }
+        use: 'babel-loader'
       },
       {
         test: /\.(vert|frag)$/,
