@@ -21,7 +21,7 @@ export function initializeShaders(gl: WebGLRenderingContext, vsSource: string, f
   }
 }
 
-export function loadShader(gl: WebGLRenderingContext, type: number, source: string): WebGLShader | null {
+function loadShader(gl: WebGLRenderingContext, type: number, source: string): WebGLShader | null {
   const shader = gl.createShader(type);
 
   if (shader !== null) {
