@@ -1,4 +1,4 @@
-import { mat3 } from 'gl-matrix';
+import { mat3, vec2 } from 'gl-matrix';
 
 import { initializeShaders } from './shaders';
 import { degToRad } from './util';
@@ -32,14 +32,15 @@ export function start(): void {
       },
       uniforms: {
         projectionMatrix: gl.getUniformLocation(shaderProgram, 'uProjectionMatrix'),
-        viewMatrix: gl.getUniformLocation(shaderProgram, 'uViewMatrix')
+        viewMatrix: gl.getUniformLocation(shaderProgram, 'uViewMatrix'),
+        modelMatrix: gl.getUniformLocation(shaderProgram, 'uModelMatrix')
       }
     }
   };
 
   gl.useProgram(programInfo.program);
 
-  // The projection matrix transforms world coordinates to screen coordinates.
+  // The projection matrix transforms camera coordinates to screen coordinates.
   // Both the X and Y axis are scaled from -1 to 1, and the X axis is larger than the Y axis.
   // So the Y axis must be scaled up by the aspect ratio of the viewport
   // such that the same number of screen pixels are in both the X and Y axis from -1 to 1.
@@ -71,6 +72,7 @@ export function start(): void {
   requestAnimationFrame(loop);
 
   let rotation = 0.0;
+  let t = 0.0;
 
   function drawScene(gl: WebGLRenderingContext, programInfo: any, delta: number): void {
     gl.useProgram(programInfo.program);
@@ -81,14 +83,24 @@ export function start(): void {
     gl.clear(gl.COLOR_BUFFER_BIT);
   
     rotation += delta * 40;
+    t += delta * 0.2;
 
+    // The view matrix transforms world coordinates to camera coordinates.
     const viewMatrix = mat3.create();
-    mat3.rotate(viewMatrix, viewMatrix, degToRad(rotation));
+
+    const camera = vec2.fromValues(t, 0);
+    vec2.negate(camera, camera);
+    mat3.translate(viewMatrix, viewMatrix, camera);
+
+    // The model matrix transforms local coordinates to world coordinates.
+    const modelMatrix = mat3.create();
+    mat3.rotate(modelMatrix, modelMatrix, degToRad(rotation));
 
     gl.useProgram(programInfo.program);
 
     // Specify matrix values for uniforms.
     gl.uniformMatrix3fv(programInfo.locations.uniforms.viewMatrix, false, viewMatrix);
+    gl.uniformMatrix3fv(programInfo.locations.uniforms.modelMatrix, false, modelMatrix);
 
     {
       const positions = [
