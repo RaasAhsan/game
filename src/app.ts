@@ -82,11 +82,11 @@ export function start(): void {
     gl.clear(gl.COLOR_BUFFER_BIT);
   
     rotation += delta * 40;
-    t += delta * 0.2;
+    // t += delta * 0.2;
 
     const camera = vec2.fromValues(t, 0);
     vec2.negate(camera, camera);
-    
+
     // The view matrix transforms world coordinates to camera coordinates.
     const viewMatrix = mat3.create();
     mat3.translate(viewMatrix, viewMatrix, camera);

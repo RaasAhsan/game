@@ -4,7 +4,11 @@
 // Shaders are functions.
 // The output vertex of a shader is functionally dependent on its input attributes, uniforms, etc.
 
-// Attributes are specified for every run of the vertex shader.
+// Attributes are per-vertex parameters.
+// Uniforms are per-primitive parameters.
+// Varying are per-fragment parameters.
+
+// Attributes must be specified for every invocation of the vertex shader (i.e. for every vertex).
 attribute vec2 aVertexPosition;
 
 // Uniforms remain the same for the lifetime of a shader program until they are updated.
@@ -12,7 +16,9 @@ uniform mat3 uProjectionMatrix;
 uniform mat3 uViewMatrix;
 uniform mat3 uModelMatrix;
 
-// We only need to pass local coordinates of some entity to the shader.
+// Varying variables are interpolated between the values passed from the vertex shaders.
+
+// We only need to pass local coordinates of an entity to the shader.
 
 void main() {
     vec3 coord = uProjectionMatrix * uViewMatrix * uModelMatrix * vec3(aVertexPosition, 1.0);
