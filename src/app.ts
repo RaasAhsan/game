@@ -75,7 +75,6 @@ export function start(): void {
   let t = 0.0;
 
   function drawScene(gl: WebGLRenderingContext, programInfo: any, delta: number): void {
-    gl.useProgram(programInfo.program);
     gl.viewport(0, 0, canvas.width, canvas.height);
     // Sets the value to use when clearing the color buffer.
     gl.clearColor(0.0, 0.0, 0.0, 1.0);
@@ -85,11 +84,11 @@ export function start(): void {
     rotation += delta * 40;
     t += delta * 0.2;
 
-    // The view matrix transforms world coordinates to camera coordinates.
-    const viewMatrix = mat3.create();
-
     const camera = vec2.fromValues(t, 0);
     vec2.negate(camera, camera);
+    
+    // The view matrix transforms world coordinates to camera coordinates.
+    const viewMatrix = mat3.create();
     mat3.translate(viewMatrix, viewMatrix, camera);
 
     // The model matrix transforms local coordinates to world coordinates.
