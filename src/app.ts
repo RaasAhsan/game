@@ -1,4 +1,4 @@
-import { mat4 } from 'gl-matrix';
+import { mat3 } from 'gl-matrix';
 
 import { initializeShaders } from './shaders';
 import { degToRad } from './util';
@@ -32,73 +32,76 @@ export function start(): void {
       },
       uniforms: {
         projectionMatrix: gl.getUniformLocation(shaderProgram, 'uProjectionMatrix'),
-        modelViewMatrix: gl.getUniformLocation(shaderProgram, 'uModelViewMatrix'),
+        viewMatrix: gl.getUniformLocation(shaderProgram, 'uViewMatrix')
       }
     }
   };
 
+  gl.useProgram(programInfo.program);
+
+  // The projection matrix transforms world coordinates to screen coordinates.
+  // Both the X and Y axis are scaled from -1 to 1, and the X axis is larger than the Y axis.
+  // So the Y axis must be scaled up by the aspect ratio of the viewport
+  // such that the same number of screen pixels are in both the X and Y axis from -1 to 1.
+  const aspectRatio = canvas.width / canvas.height;
+  const projectionMatrix = mat3.fromValues(
+    1.0, 0.0, 0.0, 
+    0.0, aspectRatio, 0.0, 
+    0.0, 0.0, 1.0
+  );
+
+  // Sets the uniform for the projection matrix.
+  gl.uniformMatrix3fv(programInfo.locations.uniforms.projectionMatrix, false, projectionMatrix);
+
+  // Enables the specified attribute.
+  gl.enableVertexAttribArray(programInfo.locations.attributes.vertexPosition);
+
   let then = 0;
 
-  function render(now: number): void {
+  function loop(now: number): void {
     now *= 0.001;
     const delta = now - then;
     then = now;
 
     drawScene(gl!, programInfo, delta);
 
-    requestAnimationFrame(render);
+    requestAnimationFrame(loop);
   }
 
-  requestAnimationFrame(render);
+  requestAnimationFrame(loop);
 
   let rotation = 0.0;
 
   function drawScene(gl: WebGLRenderingContext, programInfo: any, delta: number): void {
+    gl.useProgram(programInfo.program);
+    gl.viewport(0, 0, canvas.width, canvas.height);
+    // Sets the value to use when clearing the color buffer.
     gl.clearColor(0.0, 0.0, 0.0, 1.0);
-    gl.clearDepth(1.0);
-    gl.enable(gl.DEPTH_TEST);
-    gl.depthFunc(gl.LEQUAL);
-
-    gl.clear(gl.COLOR_BUFFER_BIT | gl.DEPTH_BUFFER_BIT);
-
-    const fieldOfView = degToRad(45);
-    const aspect = gl.canvas.clientWidth / gl.canvas.clientHeight;
-    const zNear = 0.1;
-    const zFar = 100.0;
-    const projectionMatrix = mat4.create();
-
-    mat4.perspective(projectionMatrix, fieldOfView, aspect, zNear, zFar);
-
-    const modelViewMatrix = mat4.create();
-
+    // Clears the color buffer.
+    gl.clear(gl.COLOR_BUFFER_BIT);
+  
     rotation += delta * 40;
 
-    mat4.translate(modelViewMatrix, modelViewMatrix, [0.0, 0.0, -6.0]);
-    mat4.rotate(modelViewMatrix, modelViewMatrix, degToRad(rotation), [0, 1, 0]);
-    
-    // Set the current program.
+    const viewMatrix = mat3.create();
+    mat3.rotate(viewMatrix, viewMatrix, degToRad(rotation));
+
     gl.useProgram(programInfo.program);
 
-    // Enables the specified attribute.
-    gl.enableVertexAttribArray(programInfo.locations.attributes.vertexPosition);
-
     // Specify matrix values for uniforms.
-    gl.uniformMatrix4fv(programInfo.locations.uniforms.projectionMatrix, false, projectionMatrix);
-    gl.uniformMatrix4fv(programInfo.locations.uniforms.modelViewMatrix, false, modelViewMatrix);
+    gl.uniformMatrix3fv(programInfo.locations.uniforms.viewMatrix, false, viewMatrix);
 
     {
+      const positions = [
+        -0.5, 0.5,
+        0.5, 0.5,
+        -0.5, -0.5,
+        0.5, -0.5
+      ];
+
       const positionBuffer = gl.createBuffer();
       // Binds the position buffer to ARRAY_BUFFER.
       gl.bindBuffer(gl.ARRAY_BUFFER, positionBuffer);
-
-      const positions = [
-        -1.0,  1.0,
-        1.0,  1.0,
-        -1.0, -1.0,
-        1.0, -1.0,
-      ];
-
-      // Copies the source array into the buffer currently bound to ARRAY_BUFFER.
+      // Copies the contents of the source array to the buffer currently bound to ARRAY_BUFFER.
       gl.bufferData(gl.ARRAY_BUFFER, new Float32Array(positions), gl.STATIC_DRAW);
 
       const numComponents = 2;
@@ -114,6 +117,7 @@ export function start(): void {
       gl.vertexAttribPointer(programInfo.locations.attributes.vertexPosition, numComponents, type, normalize, stride, offset);
     }
 
+    // Set the current shader program.
     gl.useProgram(programInfo.program);
     
     const offset = 0;
