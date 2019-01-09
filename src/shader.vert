@@ -3,6 +3,7 @@
 
 attribute vec4 aVertexPosition;
 
+// Uniforms remain the same for the lifetime of a shader program until they are updated.
 uniform mat4 uModelViewMatrix;
 uniform mat4 uProjectionMatrix;
 
