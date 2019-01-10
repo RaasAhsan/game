@@ -1,7 +1,7 @@
 // Shaders are executed on the GPU.
 // Vertex shaders are run for every vertex passed to the OpenGL pipeline.
 
-// Shaders are functions.
+// Shaders are functions. They should not introduce any nondeterminism.
 // The output vertex of a shader is functionally dependent on its input attributes, uniforms, etc.
 
 // Attributes are per-vertex parameters.
