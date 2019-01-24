@@ -7,6 +7,13 @@ export default function Home() {
       <h1>Demos</h1>
       
       <section>
+        <h2>Audio</h2>
+        <div>
+          <Link to="/dtmf">DTMF</Link>
+        </div>
+      </section>
+      
+      <section>
         <h2>Graphics</h2>
         <div>
           <Link to="/metaballs">Metaballs</Link>

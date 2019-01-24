@@ -4,8 +4,9 @@ import { HashRouter, Route } from 'react-router-dom';
 
 import Home from './Home';
 
-import Metaballs from './metaballs/Metaballs';
-import Shader from './shader/Shader';
+import Dtmf from './dtmf';
+import Metaballs from './metaballs';
+import Shader from './shader';
 
 export default class App extends Component {
   render() {
@@ -14,6 +15,7 @@ export default class App extends Component {
         <div>
           <Route exact path="/" component={Home} />
 
+          <Route path="/dtmf" component={Dtmf} />
           <Route path="/metaballs" component={Metaballs} />
           <Route path="/shader" component={Shader} />
         </div>
