@@ -10,7 +10,7 @@ The upper and lower bands are combined to form a composite wave -- the DTMF tone
 const dtmfUpperBand = [1336, 1209, 1336, 1477, 1209, 1336, 1477, 1209, 1336, 1477, 1209, 1477];
 const dtmfLowerBand = [941, 697, 697, 697, 770, 770, 770, 852, 852, 852, 941, 941];
 
-export default class AudioWaves extends Component {
+export default class Dtmf extends Component {
   onClick(tone) {
     const AudioContext = window.AudioContext;
     const audioContext = new AudioContext();

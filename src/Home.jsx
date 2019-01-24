@@ -11,6 +11,9 @@ export default function Home() {
         <div>
           <Link to="/dtmf">DTMF</Link>
         </div>
+        <div>
+          <Link to="/fft">FFT</Link>
+        </div>
       </section>
       
       <section>
