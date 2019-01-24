@@ -64,9 +64,6 @@ module.exports = {
     new HtmlWebpackPlugin({
       inject: true,
       template: './public/index.html'
-    }),
-    new webpack.DefinePlugin({
-      PUBLIC_URL: JSON.stringify('/')
     })
   ]
 };

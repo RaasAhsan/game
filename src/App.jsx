@@ -10,7 +10,7 @@ import Shader from './shader/Shader';
 export default class App extends Component {
   render() {
     return (
-      <HashRouter hashType="noslash">
+      <HashRouter>
         <div>
           <Route exact path="/" component={Home} />
 
