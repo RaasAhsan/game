@@ -7,11 +7,11 @@ module.exports = {
     './src/main.js'
   ],
   resolve: {
-    extensions: ['.js', '.ts']
+    extensions: ['.js', '.jsx', '.ts']
   },
   output: {
     pathinfo: true,
-    filename: 'static/[name].[chunkhash].js',
+    filename: 'assets/[name].[chunkhash].js',
     publicPath: '/game'
   },
   optimization: {
@@ -27,12 +27,47 @@ module.exports = {
         use: 'babel-loader'
       },
       {
+        test: /\.css$/,
+        exclude: /(global.css|node_modules)/,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1,
+              localIdentName: "[name]__[local]___[hash:base64:5]",
+              modules: true,
+            },
+          }
+        ]
+      },
+      {
+        test: /\.css$/,
+        include: /(global.css|node_modules)/,
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader
+          },
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1
+            },
+          }
+        ]
+      },
+      {
         test: /\.(vert|frag)$/,
         loader: 'raw-loader'
       }
     ]
   },
   plugins: [
+    new MiniCssExtractPlugin({
+      filename: 'assets/[name].[chunkhash].css'
+    }),
     new HtmlWebpackPlugin({
       inject: true,
       template: './public/index.html'

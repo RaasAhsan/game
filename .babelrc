@@ -1,6 +1,9 @@
 {
-    "presets": [
-        "@babel/env",
-        "@babel/preset-typescript"
-    ]
+  "plugins": [
+    "@babel/plugin-transform-react-jsx"
+  ],
+  "presets": [
+    "@babel/env",
+    "@babel/preset-typescript"
+  ]
 }

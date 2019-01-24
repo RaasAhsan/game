@@ -1,10 +1,6 @@
-const urlParams = new URLSearchParams(window.location.search);
-const demo = urlParams.get('demo');
+import React from 'react';
+import ReactDOM from 'react-dom';
 
-if (demo === 'metaballs') {
-  const { start } = require('./metaballs');
-  start();
-} else {
-  const { start } = require('./app');
-  start();
-}
+import App from './App';
+
+ReactDOM.render(<App />, document.getElementById('app-root'));

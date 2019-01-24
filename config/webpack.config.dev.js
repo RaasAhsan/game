@@ -11,7 +11,7 @@ module.exports = {
     './src/main.js'
   ],
   resolve: {
-    extensions: ['.js', '.ts']
+    extensions: ['.js', '.jsx', '.ts']
   },
   output: {
     pathinfo: true,
@@ -21,9 +21,37 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(js|ts)$/,
+        test: /\.(js|jsx|ts)$/,
         exclude: /node_modules/,
         use: 'babel-loader'
+      },
+      {
+        test: /\.css$/,
+        exclude: /(global.css|node_modules)/,
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1,
+              localIdentName: "[name]__[local]___[hash:base64:5]",
+              modules: true,
+            },
+          }
+        ]
+      },
+      {
+        test: /\.css$/,
+        include: /(global.css|node_modules)/,
+        use: [
+          'style-loader',
+          {
+            loader: 'css-loader',
+            options: {
+              importLoaders: 1
+            },
+          }
+        ]
       },
       {
         test: /\.(vert|frag)$/,

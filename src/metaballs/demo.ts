@@ -1,12 +1,10 @@
-import { mat3, vec2 } from 'gl-matrix';
-
-import { initializeShaders } from './shaders';
-import { degToRad } from './util';
+import { initializeShaders } from '../shaders';
 
 const vertexSource = require('./shader.vert');
 const fragmentSource = require('./shader.frag');
 
 export function start(): void {
+  console.log('started');
   const canvas = document.querySelector('#gameCanvas') as HTMLCanvasElement;
   if (canvas === null) {
     alert('Cannot find canvas.');
@@ -29,30 +27,11 @@ export function start(): void {
     locations: {
       attributes: {
         vertexPosition: gl.getAttribLocation(shaderProgram, 'aVertexPosition'),
-      },
-      uniforms: {
-        projectionMatrix: gl.getUniformLocation(shaderProgram, 'uProjectionMatrix'),
-        viewMatrix: gl.getUniformLocation(shaderProgram, 'uViewMatrix'),
-        modelMatrix: gl.getUniformLocation(shaderProgram, 'uModelMatrix')
       }
     }
   };
 
   gl.useProgram(programInfo.program);
-
-  // The projection matrix transforms camera coordinates to screen coordinates.
-  // Both the X and Y axis are scaled from -1 to 1, and the X axis is larger than the Y axis.
-  // So the Y axis must be scaled up by the aspect ratio of the viewport
-  // such that the same number of screen pixels are in both the X and Y axis from -1 to 1.
-  const aspectRatio = canvas.width / canvas.height;
-  const projectionMatrix = mat3.fromValues(
-    1.0, 0.0, 0.0, 
-    0.0, aspectRatio, 0.0, 
-    0.0, 0.0, 1.0
-  );
-
-  // Sets the uniform for the projection matrix.
-  gl.uniformMatrix3fv(programInfo.locations.uniforms.projectionMatrix, false, projectionMatrix);
 
   // Enables the specified attribute.
   gl.enableVertexAttribArray(programInfo.locations.attributes.vertexPosition);
@@ -82,31 +61,15 @@ export function start(): void {
     gl.clear(gl.COLOR_BUFFER_BIT);
   
     rotation += delta * 40;
-    // t += delta * 0.2;
-
-    const camera = vec2.fromValues(t, 0);
-    vec2.negate(camera, camera);
-
-    // The view matrix transforms world coordinates to camera coordinates.
-    const viewMatrix = mat3.create();
-    mat3.translate(viewMatrix, viewMatrix, camera);
-
-    // The model matrix transforms local coordinates to world coordinates.
-    const modelMatrix = mat3.create();
-    mat3.rotate(modelMatrix, modelMatrix, degToRad(rotation));
 
     gl.useProgram(programInfo.program);
 
-    // Specify matrix values for uniforms.
-    gl.uniformMatrix3fv(programInfo.locations.uniforms.viewMatrix, false, viewMatrix);
-    gl.uniformMatrix3fv(programInfo.locations.uniforms.modelMatrix, false, modelMatrix);
-
     {
       const positions = [
-        -0.5, 0.5,
-        0.5, 0.5,
-        -0.5, -0.5,
-        0.5, -0.5
+        -1.0, 1.0,
+        1.0, 1.0,
+        -1.0, -1.0,
+        1.0, -1.0
       ];
 
       const positionBuffer = gl.createBuffer();
@@ -138,3 +101,4 @@ export function start(): void {
     gl.drawArrays(gl.TRIANGLE_STRIP, offset, vertexCount);
   }
 }
+
