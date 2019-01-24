@@ -1,4 +1,5 @@
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const webpack = require('webpack');
 
 module.exports = {
   mode: 'development',
@@ -63,6 +64,9 @@ module.exports = {
     new HtmlWebpackPlugin({
       inject: true,
       template: './public/index.html'
+    }),
+    new webpack.DefinePlugin({
+      PUBLIC_URL: JSON.stringify('/')
     })
   ]
 };
