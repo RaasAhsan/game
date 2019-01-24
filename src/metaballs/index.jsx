@@ -10,6 +10,7 @@ export default class Metaballs extends Component {
   render() {
     return (
       <div>
+        <h1>Metaballs</h1>
         <canvas id="gameCanvas" width="640" height="480"></canvas>
       </div>
     );
