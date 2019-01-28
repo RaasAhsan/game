@@ -14,10 +14,20 @@ export default function Home() {
         <div>
           <Link to="/fft">FFT</Link>
         </div>
+        <div>
+          <Link to="/soundwaves">Sound waves</Link>
+        </div>
+      </section>
+
+      <section>
+        <h2>Graphics</h2>
+        <div>
+          <Link to="/imagequantization">Image quantization</Link>
+        </div>
       </section>
       
       <section>
-        <h2>Graphics</h2>
+        <h2>WebGL Shaders</h2>
         <div>
           <Link to="/metaballs">Metaballs</Link>
         </div>

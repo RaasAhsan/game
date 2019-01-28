@@ -47,7 +47,9 @@ export default class Fft extends Component {
       reader.addEventListener('loadend', () => {
         const result = reader.result;
 
+        // TODO: This returns a promise as well.
         audioContext.decodeAudioData(result, decoded => {
+          // This decoded audio data is in raw PCM format, uncompressed.
           console.log(decoded);
         }, error => {
           console.error(error);
