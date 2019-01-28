@@ -78,6 +78,9 @@ export default class ImageQuantization extends Component {
     return (
       <div>
         <h1>Grayscale quantization</h1>
+        <p>
+          Transforms a four-channel RGBA image to a single-channel monochrome image, optionally performing image quantization to reduce the discrete range of channel values.
+        </p>
         <div>
           <div>
             <span>Image</span>
