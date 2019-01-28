@@ -14,7 +14,7 @@ module.exports = {
   output: {
     pathinfo: true,
     filename: 'assets/[name].[chunkhash].js',
-    publicPath: '/game'
+    publicPath: '/game/'
   },
   optimization: {
     minimizer: [
