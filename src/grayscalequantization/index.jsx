@@ -77,7 +77,7 @@ export default class ImageQuantization extends Component {
 
     return (
       <div>
-        <h1>Image quantization</h1>
+        <h1>Grayscale quantization</h1>
         <div>
           <div>
             <span>Image</span>

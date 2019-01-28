@@ -8,7 +8,7 @@ import Dtmf from './dtmf';
 import Fft from './fft';
 import SoundWaves from './soundwaves';
 
-import ImageQuantization from './imagequantization';
+import GrayscaleQuantization from './grayscalequantization';
 
 import Metaballs from './metaballs';
 import Shader from './shader';
@@ -24,7 +24,7 @@ export default class App extends Component {
           <Route path="/fft" component={Fft} />
           <Route path="/soundwaves" component={SoundWaves} />
 
-          <Route path="/imagequantization" component={ImageQuantization} />
+          <Route path="/grayscalequantization" component={GrayscaleQuantization} />
 
           <Route path="/metaballs" component={Metaballs} />
           <Route path="/shader" component={Shader} />

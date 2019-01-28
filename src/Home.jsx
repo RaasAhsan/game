@@ -22,7 +22,7 @@ export default function Home() {
       <section>
         <h2>Graphics</h2>
         <div>
-          <Link to="/imagequantization">Image quantization</Link>
+          <Link to="/grayscalequantization">Grayscale quantization</Link>
         </div>
       </section>
       
