@@ -9,6 +9,9 @@ export default function Home() {
       <section>
         <h2>Audio</h2>
         <div>
+          <Link to="/soundmixer">8-bit sound mixer</Link>
+        </div>
+        <div>
           <Link to="/dtmf">DTMF</Link>
         </div>
         <div>
@@ -23,6 +26,9 @@ export default function Home() {
         <h2>Graphics</h2>
         <div>
           <Link to="/grayscalequantization">Grayscale quantization</Link>
+        </div>
+        <div>
+          <Link to="/perlinnoise">Perlin noise</Link>
         </div>
       </section>
       
