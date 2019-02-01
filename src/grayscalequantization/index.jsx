@@ -165,6 +165,7 @@ export default class ImageQuantization extends Component {
           <div>
             <span>Quantization bits: </span>
             <input type="text" id="quantizationBits" value={this.state.quantizationBits} onChange={this.onChange} />
+            <span>Range: 1 to 8</span>
           </div>
           <div>
             <input id="dithering" type="checkbox" value={this.state.dithering} onChange={this.onCheckbox} />
