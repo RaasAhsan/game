@@ -4,9 +4,14 @@ function sineWave(f, t) {
   return Math.sin(2 * Math.PI * f * t);
 }
 
+// A square wave oscillating at N Hz is composed of all odd harmonics of the fundamental frequency.
 function squareWave(f, t) {
-  // return Math.sign(Math.sin(2 * Math.PI * f * t));
-  return (2 / Math.PI) * Math.atan(Math.sin(2 * Math.PI * f * t) / 0.2);
+  let n = 0;
+  for (let i = 1; i < 20; i++) {
+    const h = 2 * i - 1;
+    n += (1 / h) * Math.sin(2 * Math.PI * f * h * t);
+  }
+  return n;
 }
 
 export default class SoundMixer extends Component {
