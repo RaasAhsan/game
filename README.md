@@ -1,3 +1,3 @@
-# game
+# demos
 
-webgl demos
+javascript demos
