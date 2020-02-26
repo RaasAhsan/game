@@ -11,7 +11,7 @@ deploy:
   provider: pages
   target-branch: gh-pages
   skip-cleanup: true
-  github-token: $REPO_TOKEN
+  github-token: $GITHUB_TOKEN
   keep-history: true
   local-dir: ./dist
   on:
