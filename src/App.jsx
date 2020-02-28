@@ -15,6 +15,8 @@ import PerlinNoise from './perlinnoise';
 import Metaballs from './metaballs';
 import Shader from './shader';
 
+import Options from './options';
+
 export default class App extends Component {
   render() {
     return (
@@ -32,6 +34,8 @@ export default class App extends Component {
 
           <Route path="/metaballs" component={Metaballs} />
           <Route path="/shader" component={Shader} />
+
+          <Route path="/options" component={Options} />
         </div>
       </HashRouter>
     );

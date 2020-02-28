@@ -41,6 +41,13 @@ export default function Home() {
           <Link to="/shader">Shader</Link>
         </div>
       </section>
+
+      <section>
+        <h2>Trading</h2>
+        <div>
+          <Link to="/options">Options</Link>
+        </div>
+      </section>
     </div>
   );
 }
